@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+    backend:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - "8080:8000"
+        volumes:
+            - .:/app
+        depends_on:
+            - db
+
+    db:
+        image: mysql:5.7.36
+        restart: always
+        environment:
+            MYSQL_DATABASE: vue3-and-laravel-practical-guide-with-docker
+            MYSQL_USER: root
+            MYSQL_PASSWORD: root
+            MYSQL_ROOT_PASSWORD: root
+        volumes:
+            - ./storage/dbdata:/var/lib/mysql
+        ports:
+            - "33066:3306"
