@@ -22,17 +22,16 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
+        'role_id'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $guarded = [];
+    protected $hidden = ['password'];
+
+    public function role(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Role::class, 'role_id', 'id');
+    }
 
     /**
      * The attributes that should be cast.
