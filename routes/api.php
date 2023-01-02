@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -37,5 +38,12 @@ Route::middleware('auth:sanctum')->group(function(){
 
    Route::get('/roles', [RoleController::class, 'index']);
    Route::post('/roles', [RoleController::class, 'store']);
+
+   Route::get('/products', [ProductController::class, 'index']);
+   Route::post('/products', [ProductController::class, 'store']);
+   Route::get('/products/{id}', [ProductController::class, 'show']);
+   Route::put('/products/{id}', [ProductController::class, 'update']);
+   Route::delete('/products/{id}', [ProductController::class, 'destroy']);
+
 
 });

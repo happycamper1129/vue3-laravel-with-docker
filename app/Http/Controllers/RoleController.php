@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 class RoleController extends Controller
 {
     public function index(){
-        return Role::all();
+        return new RoleResource(Role::all());
     }
 
     public function store(Request $request){
