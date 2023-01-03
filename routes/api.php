@@ -52,4 +52,5 @@ Route::middleware('auth:sanctum')->group(function(){
    Route::get('/orders', [OrderController::class, 'index']);
    Route::get('/orders/{id}', [OrderController::class, 'show']);
    Route::post('/orders/export', [OrderController::class, 'export']);
+   Route::get('/orders/items/chart', [OrderController::class, 'chart']);
 });

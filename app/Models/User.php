@@ -28,11 +28,6 @@ class User extends Authenticatable
     protected $guarded = [];
     protected $hidden = ['password'];
 
-    public function role(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->belongsTo(Role::class, 'role_id', 'id');
-    }
-
     /**
      * The attributes that should be cast.
      *
@@ -41,4 +36,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function role(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Role::class, 'role_id', 'id');
+    }
+
+//    public function hasAccess($access){
+//        return $this->role->permissions->pluck('name')->contains($access);
+//    }
+
 }
