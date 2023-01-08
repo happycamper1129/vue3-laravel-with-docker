@@ -2,30 +2,36 @@
 
     <body class="text-center">
         <main class="form-signin w-100 m-auto">
-        <form>
-            <img class="mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+        <form @submit="submit">
+            <img class="mb-4" src="/public/favicon.ico" alt="" width="72" height="57">
             <h1 class="h3 mb-3 fw-normal">Register</h1>
 
             <div class="form-floating">
-                <input type="text" class="form-control" placeholder="First Name">
+                <input type="text" v-model="firstName" class="form-control" placeholder="First Name">
                 <label for="floatingInput">First Name</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" placeholder="Last Name">
+                <input v-model="lastName" type="text" class="form-control" placeholder="Last Name">
                 <label for="floatingInput">Last Name</label>
             </div>
             <div class="form-floating">
-                <input type="email" class="form-control" placeholder="Email Address">
+                <input v-model="email" type="email" class="form-control" placeholder="Email Address">
                 <label for="floatingInput">Email address</label>
             </div>
             <div class="form-floating">
-                <input type="password" class="form-control" placeholder="Password">
+                <input v-model="password" type="password" class="form-control" placeholder="Password">
+                <label for="floatingPassword">Password</label>
+            </div>
+            <div class="form-floating">
+                <input v-model="passwordConfirm" type="password" class="form-control"
+                       placeholder="Password Confirm">
                 <label for="floatingPassword">Password</label>
             </div>
 
             <div class="checkbox mb-3">
                 <label>
-                    <input type="checkbox" value="remember-me"> Remember me
+                    <input v-model="rememberMe" type="checkbox"
+                           value="remember-me"> Remember me
                 </label>
             </div>
 
@@ -46,13 +52,23 @@ export default {
         const email = ref('');
         const password = ref('');
         const passwordConfirm = ref('');
+        const rememberMe = ref(false);
+
+        const submit = () => {
+            console.log({
+                first_name: firstName.value,
+                last_name: lastName.value,
+            })
+        }
 
         return {
             firstName,
             lastName,
             email,
             password,
-            passwordConfirm
+            passwordConfirm,
+            rememberMe,
+            submit
         }
     }
 }
