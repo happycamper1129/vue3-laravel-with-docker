@@ -1,31 +1,25 @@
 <template>
 
     <body class="text-center">
-        <main class="form-signin w-100 m-auto">
+    <main class="form-signin w-100 m-auto">
         <form @submit.prevent="submit">
             <img class="mb-4" src="/public/favicon.ico" alt="" width="72" height="57">
-            <h1 class="h3 mb-3 fw-normal">Register</h1>
+            <h1 class="h3 mb-3 fw-normal">Login</h1>
 
             <div class="form-floating">
-                <input type="text" v-model="firstName" class="form-control" placeholder="First Name">
-                <label for="floatingInput">First Name</label>
-            </div>
-            <div class="form-floating">
-                <input v-model="lastName" type="text" class="form-control" placeholder="Last Name">
-                <label for="floatingInput">Last Name</label>
-            </div>
-            <div class="form-floating">
-                <input v-model="email" type="email" class="form-control" placeholder="Email Address">
+                <input v-model="form.email" type="email" class="form-control" placeholder="Email Address">
                 <label for="floatingInput">Email address</label>
             </div>
             <div class="form-floating">
-                <input v-model="password" type="password" class="form-control" placeholder="Password">
+                <input v-model="form.password" type="password" class="form-control" placeholder="Password">
                 <label for="floatingPassword">Password</label>
             </div>
-            <div class="form-floating">
-                <input v-model="passwordConfirm" type="password" class="form-control"
-                       placeholder="Password Confirm">
-                <label for="floatingPassword">Password Confirm</label>
+
+            <div class="checkbox mb-3">
+                <label>
+                    <input v-model="form.rememberMe" type="checkbox"
+                           value="remember-me"> Remember me
+                </label>
             </div>
 
             <button class="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
@@ -36,48 +30,31 @@
 </template>
 
 <script lang="ts">
-import {ref} from 'vue';
+import {reactive} from 'vue';
 import axios from 'axios';
 import {useRouter} from 'vue-router';
 
 export default {
-    name: "RegisterView",
+    name: "LoginView",
     setup(){
-        const firstName = ref('');
-        const lastName = ref('');
-        const email = ref('');
-        const password = ref('');
-        const passwordConfirm = ref('');
+        const form = reactive({
+            email: '',
+            password: '',
+            rememberMe: '',
+        });
         const router = useRouter();
 
-        let formData = {
-            first_name: firstName.value,
-            last_name: lastName.value,
-            email: email.value,
-            password: password.value,
-            password_confirm: passwordConfirm.value,
-        };
-
         const submit = async () => {
-            console.log(formData);
-            const {data} = await axios.post('http://localhost:8080/api/register', {
-                first_name: firstName.value,
-                last_name: lastName.value,
-                email: email.value,
-                password: password.value,
-                password_confirm: passwordConfirm.value,
+            console.log(form);
+            const {data} = await axios.post('login', form, {
+                withCredentials: true
             });
             console.log(data);
-
-            await router.push('/login');
+            await router.push('/');
         }
 
         return {
-            firstName,
-            lastName,
-            email,
-            password,
-            passwordConfirm,
+            form,
             submit
         }
     }
